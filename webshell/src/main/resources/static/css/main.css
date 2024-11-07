@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#terminal-container {
+    width: 800px;
+    height: 600px;
+    background: #000;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
