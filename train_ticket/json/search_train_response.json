@@ -1,0 +1,165 @@
+{
+  "data": {
+    "trains": [
+      {
+        "trip_number": "PARJOTAK EXPRESS (816)",
+        "departure_date_time": "05 Dec, 06:15 am",
+        "departure_full_date": "2024-12-05",
+        "departure_date_time_jd": "Thu, 05 Dec 2024, 06:15 AM",
+        "arrival_date_time": "05 Dec, 11:20 am",
+        "travel_time": "05h 05m",
+        "origin_city_name": "dhaka",
+        "destination_city_name": "chattogram",
+        "seat_types": [
+          {
+            "key": 7,
+            "type": "S_CHAIR",
+            "trip_id": 8371351,
+            "trip_route_id": 51311181,
+            "route_id": 25715,
+            "fare": "450.00",
+            "vat_percent": 0,
+            "vat_amount": 0,
+            "seat_counts": {
+              "online": 29,
+              "offline": 28,
+              "is_divided": true
+            }
+          },
+          {
+            "key": 3,
+            "type": "SNIGDHA",
+            "trip_id": 8371352,
+            "trip_route_id": 51311187,
+            "route_id": 25715,
+            "fare": "743.00",
+            "vat_percent": 15,
+            "vat_amount": 112,
+            "seat_counts": {
+              "online": 27,
+              "offline": 26,
+              "is_divided": true
+            }
+          },
+          {
+            "key": 2,
+            "type": "AC_S",
+            "trip_id": 8371366,
+            "trip_route_id": 51311365,
+            "route_id": 25715,
+            "fare": "891.00",
+            "vat_percent": 15,
+            "vat_amount": 134,
+            "seat_counts": {
+              "online": 1,
+              "offline": 1,
+              "is_divided": true
+            }
+          }
+        ],
+        "train_model": "816",
+        "is_open_for_all": true,
+        "is_eid_trip": 0,
+        "boarding_points": [
+          {
+            "trip_point_id": 107011222,
+            "location_id": 2719,
+            "location_name": "Kamalapur Station",
+            "location_time": "06:15 AM"
+          }
+        ],
+        "is_international": 0,
+        "is_from_city_international": false
+      },
+      {
+        "trip_number": "TURNA (742)",
+        "departure_date_time": "05 Dec, 11:15 pm",
+        "departure_full_date": "2024-12-05",
+        "departure_date_time_jd": "Thu, 05 Dec 2024, 11:15 PM",
+        "arrival_date_time": "06 Dec, 05:15 am",
+        "travel_time": "06h 00m",
+        "origin_city_name": "dhaka",
+        "destination_city_name": "chattogram",
+        "seat_types": [
+          {
+            "key": 3,
+            "type": "SNIGDHA",
+            "trip_id": 8371158,
+            "trip_route_id": 51306858,
+            "route_id": 22827,
+            "fare": "675.00",
+            "vat_percent": 15,
+            "vat_amount": 102,
+            "seat_counts": {
+              "online": 35,
+              "offline": 35,
+              "is_divided": true
+            }
+          },
+          {
+            "key": 1,
+            "type": "AC_B",
+            "trip_id": 8371224,
+            "trip_route_id": 51308564,
+            "route_id": 22827,
+            "fare": "1215.00",
+            "vat_percent": 15,
+            "vat_amount": 183,
+            "seat_counts": {
+              "online": 1,
+              "offline": 0,
+              "is_divided": true
+            }
+          },
+          {
+            "key": 4,
+            "type": "F_BERTH",
+            "trip_id": 8371225,
+            "trip_route_id": 51308578,
+            "route_id": 22827,
+            "fare": "810.00",
+            "vat_percent": 15,
+            "vat_amount": 122,
+            "seat_counts": {
+              "online": 0,
+              "offline": 0,
+              "is_divided": true
+            }
+          },
+          {
+            "key": 7,
+            "type": "S_CHAIR",
+            "trip_id": 8371226,
+            "trip_route_id": 51308592,
+            "route_id": 22827,
+            "fare": "405.00",
+            "vat_percent": 0,
+            "vat_amount": 0,
+            "seat_counts": {
+              "online": 0,
+              "offline": 0,
+              "is_divided": true
+            }
+          }
+        ],
+        "train_model": "742",
+        "is_open_for_all": true,
+        "is_eid_trip": 0,
+        "boarding_points": [
+          {
+            "trip_point_id": 107008230,
+            "location_id": 2719,
+            "location_name": "Kamalapur Station",
+            "location_time": "11:15 PM"
+          }
+        ],
+        "is_international": 0,
+        "is_from_city_international": false
+      }
+    ],
+    "selected_seat_class": "SNIGDHA"
+  },
+  "extra": {
+    "hash": "88E00379AB924FAF93ACD45CF0B3C41E"
+  }
+}

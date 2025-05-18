@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head th:insert="~{layouts/partials/header.html}">
+
+    <title>Login Page</title></head>
+
+<body>
+<main class="landing-main">
+    <div class="landing-main-inner">
+        <div class="welcome-note">
+            <img th:src="@{/img/logo-landing.svg}" alt="bKash-logo">
+            <h1>Welcome to FinRec</h1>
+        </div>
+        <div class="login-form">
+            <div th:if="${error == true && session['SPRING_SECURITY_LAST_EXCEPTION'] != null}" class="alert login-alert-button alert-dismissible show fade">
+                <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                    Please confirm your email and password</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${expired == true}" class="alert login-alert-button alert-dismissible show fade">
+                <span>
+                    Login session expired</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="loginForm" th:action="@{/login}" method="post">
+                <div class="form-field">
+                    <input type="text" id="loginEmail" name="username" placeholder="Email"/>
+                    <label id="loginEmail-label">Email ID</label>
+                </div>
+                <div class="form-field">
+                    <input type="password" id="loginPass" name="password" placeholder="Password"/>
+                    <label id="loginPass-label">Password</label>
+                </div>
+                <div class="form-field">
+                    <button class="btn login-button" type="submit" form="loginForm">Login</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+<footer th:insert="~{layouts/partials/footer.html}"></footer>
+</html>

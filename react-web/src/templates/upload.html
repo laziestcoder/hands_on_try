@@ -1,0 +1,29 @@
+<!Doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/layout :: layout(vCenter='false', currentPage='upload')}">
+
+<body>
+<div layout:fragment="content" class="generate-reports generate-reports-inner main-content">
+    <div style="display: flex;">
+        <div style=" width: 100vw; padding: 35px; background-color: #F9F9F9;">
+            <h5 style="font-weight: normal; font-size: 20px; margin-top: 0px; margin-bottom: 8px">
+                Upload File</h5>
+            <div class="d-none" th:id="error-modal">
+                <h5 style="font-size: 15px" class="modal-title confirmation-note-text-danger">Error</h5>
+            </div>
+            <form id="upload" enctype="multipart/form-data">
+                <input type="file" name="file" id="file-input"/>
+                <button th:attr="data-id=${serviceName}" type="button" class="btn btn-sm submit-button">Upload</button>
+            </form>
+
+        </div>
+    </div>
+    <!-- Dark Overlay element for sidebar -->
+    <div class="sidebar-overlay"></div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/upload.js}"></script>
+</th:block>
+</body>
+</html>

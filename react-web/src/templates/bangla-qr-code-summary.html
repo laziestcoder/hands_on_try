@@ -1,0 +1,104 @@
+<!Doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="~{layouts/layout :: layout(vCenter='false', currentPage='bangla-qr-code-summary')}">
+
+<body>
+<div layout:fragment="content" class="main-content" style="width: 140%">
+    <div style="display: flex;">
+        <div style=" width: 100%; padding: 35px; background-color: #F9F9F9;">
+            <h5 style="font-weight: normal; font-size: 20px; margin-top: 0px; margin-bottom: 8px">
+                Bangla QR Code Summary Report</h5>
+
+
+            <div style="margin-top: 20px;" sec:authorize="hasAnyRole('ROLE_EDIT')">
+                <label >Download data table :</label>
+                <select th:id="fileType" required>
+                    <option disabled selected value="">Choose a file type</option>
+                    <option value="csv">CSV</option>
+                    <option value="xls">XLS</option>
+                    <option value="xlsx">XLSX</option>
+                </select>
+                <button onclick="downloadFile('summary')" class="btn btn-sm submit-button">Download</button>
+            </div>
+
+            <div class="time-range-selector">
+                <div class="form-group time-range-selector-group">
+                    <label ></label><input type="text" th:id="case-text" class="form-control" placeholder="Case Text">
+                    <label ></label><input required type="text" th:id="from-date" class="form-control time-picker" placeholder="From">
+                    <label ></label><input required type="text" th:id="to-date" class="form-control time-picker ml-3 form-input-ml" placeholder="To">
+                    <button th:id="filter-button-summary" class="btn btn-sm submit-button">Filter</button>
+                </div>
+            </div>
+
+            <div class="d-none" th:id="error-modal">
+                <h5 style="font-size: 15px" class="modal-title confirmation-note-text-danger">Error</h5>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table table-borderless custom-table-design shadow-sm"
+                       style="border-collapse: collapse; width: 100%; margin-top: 20px; font-size: 80%;text-align: center; background-color: #FFFFFF; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;">
+                    <thead th:id="bangla-qr-code-table" data-id="summary">
+                        <tr>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="2" colspan="1">Sl No.</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="2" colspan="1">Case</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="2" colspan="1">TRX. Type</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="1" colspan="9">Issuing</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="1" colspan="9">Acquiring</th>
+                            <th style="align-content: center; background-color: #CFD8DC; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="1" colspan="3">Platform Fee</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 20px" rowspan="1" colspan="3">Total</th>
+                        </tr>
+                        <tr>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK TRX CNT</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB TRX CNT</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP CNT (BK-BB)</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK TRX AMT</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB TRX AMT</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP AMT (BK-BB)</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK_Iss. Fee</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB_Iss. Fee</th>
+                            <th style="align-content: center; background-color: #DDD8C3; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP Iss. Fee (BK-BB)</th>
+
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK TRX CNT</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB TRX CNT</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP CNT (BK-BB)</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK TRX AMT</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB TRX AMT</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP AMT (BK-BB)</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK_ACQ. Fee</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB_ACQ. Fee</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP ACQ. Fee (BK-BB)</th>
+
+                            <th style="align-content: center; background-color: #CFD8DC; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BK Platform Fee</th>
+                            <th style="align-content: center; background-color: #CFD8DC; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">BB Platform Fee</th>
+                            <th style="align-content: center; background-color: #CFD8DC; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">GAP Platform Fee (BK-BB)</th>
+
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">Net Fee (Iss.-Acq.-P. Fee)</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">Net TRX Amount (Acq.-Iss.)</th>
+                            <th style="align-content: center; background-color: #FFFFFF; color: #000000; font-weight: normal; border-right: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000; border-top: 1px solid #000000; padding: 10px" rowspan="1" colspan="1">Net Amount (Net TRX AMT-Net Fee)</th>
+                        </tr>
+                    </thead>
+                    <tbody th:id="bangla-qr-code-table-body">
+                        <tr></tr>
+                    </tbody>
+                    <tfoot th:id="bangla-qr-code-table-foot">
+                        <tr></tr>
+                    </tfoot>
+                </table>
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-sm">
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Dark Overlay element for sidebar -->
+    <div class="sidebar-overlay"></div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/bangla.qr.code.js}"></script>
+</th:block>
+</body>
+</html>

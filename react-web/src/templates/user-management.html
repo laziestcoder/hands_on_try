@@ -1,0 +1,150 @@
+<!Doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/layout :: layout(vCenter='false', currentPage='user')}">
+<body>
+
+<div layout:fragment="content" class="retailer-sim user-management-inner main-content">
+    <h5 class="content-title"><b>Manage Users</b></h5>
+    <div class="action-bar user-management-action-bar-res">
+        <div class="action-bar-left">
+            <div class="search-for-id">
+                <div class="form-group user-search-area">
+                    <label>Search :</label>
+                    <div class="id-search-box-user">
+                        <input type="text" class="manage-search" placeholder="Email"/>
+                        <i class="fas fa-search user-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="action-bar-right user-management-action-bar-right-res">
+            <button type="button" id="actionBtnAddUser" class="btn btn-sm action-button action-add">Add
+                User<span></span></button>
+
+            <!-- Modal For User Management Add User -->
+            <div class="card user-management-useradd-modal custom-modal-design d-none">
+                <div class="overlay"></div>
+                <div class="user-management-useradd-modal-inner custom-modal-inner-design">
+                    <h5 class="useradd-modal-title pb-4">Add New User</h5>
+                    <div class="d-none" th:id="error-modal">
+                        <h5 style="font-size: 15px" class="modal-title confirmation-note-text-danger">Error</h5>
+                    </div>
+                    <div class="search-user-id">
+                        <form>
+                            <div class="form-group add-user-form-group">
+                                <label class="user-form-label">Email ID </label>
+                                <div class="useradd-search-box">
+                                    <input id="ldap-user-id" type="text" class="form-control add-user-search">
+                                    <i class="fas fa-search user-search"></i>
+                                </div>
+                            </div>
+                            <div class="form-group add-user-form-group pt-2">
+                                <label class="user-form-label">Confirm Email ID</label>
+                                <input type="email" id="add-email-id" class="form-control user-add-all-id"
+                                       disabled="disabled">
+                            </div>
+                            <div class="form-group add-user-form-group pt-4">
+                                <label class="user-form-label">Role</label>
+                                <div class="role-radio-input add-user-role">
+                                    <div th:each="role : ${roles}" class="form-check form-check-inline">
+                                        <input class="form-check-input user-management-radio" type="radio" name="role"
+                                               th:id="'roleRadio'+${role.id}" th:value="${role.id}">
+                                        <label class="add-user-radio-btn" th:for="'roleRadio'+${role.id}"
+                                               th:text="${role.name}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="text-center pt-2">
+                            <button type="button" id="add-user-confirm" class="btn btn-sm submit-button">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-management-table table-responsive-sm">
+        <table class="table table-borderless custom-table-design shadow-sm">
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role.name}"></td>
+                <td class="user-management-action">
+                    <input type="hidden" th:value="${#strings.replace(user.email, '.', '_')}"/>
+                    <span class="action-text custom-modal-onclick user-edit">Edit</span> |
+                    <span class="action-text custom-modal-onclick user-delete">Delete</span>
+
+                    <!-- Modal For User Management Edit User -->
+                    <div class="card usaction-texter-management-useredit-modal custom-modal custom-modal-design d-none text-left">
+                        <div class="overlay"></div>
+                        <div class="user-management-useredit-modal-inner custom-modal-inner-design">
+                            <h5 class="custom-edit-modal-title pb-4">Edit User</h5>
+                            <div class="d-none" th:id="error-modal">
+                                <h5 style="font-size: 15px" class="modal-title confirmation-note-text-danger">Error</h5>
+                            </div>
+                            <div class="search-user-id">
+                                <form id="user-edit-form">
+                                    <div class="form-group edit-user-form-group pt-2">
+                                        <label class="label-align-width">Email ID</label>
+                                        <input disabled="disabled" th:id="'userEmailIdInput' + ${#strings.replace(user.email, '.', '_')}"
+                                               th:value="${user.email}" type="email"
+                                               class="form-control user-add-all-id">
+
+                                    </div>
+                                    <div class="form-group add-user-form-group pt-4">
+                                        <label class="user-form-label">Role</label>
+                                        <div class="role-radio-input add-user-role">
+                                            <div th:each="role : ${roles}" class="form-check form-check-inline">
+                                                <input type="hidden"
+                                                       th:if="${role.id == user.role.id}"
+                                                       th:value="${role.id}" th:id="'currentRole' + ${#strings.replace(user.email, '.', '_')}">
+                                                <input class="form-check-input user-management-radio editRole"
+                                                       type="radio"
+                                                       name="editRole"
+                                                       th:id="'edRoleRadio'+${role.id} +'_'+${#strings.replace(user.email, '.', '_')}"
+                                                       th:value="${role.id}"
+                                                       th:checked="${role.id == user.role.id}">
+                                                <label class="add-user-radio-btn"
+                                                       th:for="'edRoleRadio'+${role.id} +'_'+${#strings.replace(user.email, '.', '_')}"
+                                                       th:text="${role.name}"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="text-center pt-2">
+                                    <button type="button" id="edit-user-confirm"
+                                            class="btn btn-sm submit-button edit-user-confirm">Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+
+
+        <nav aria-label="Page navigation example" th:if="${userList.totalPages > 1}">
+            <ul class="pagination pagination-sm">
+                <li th:each="pageNumber : ${pageNumbers}" class="page-item"><a class="page-link custom-paging-link"
+                                                                               href="#" th:text="${pageNumber + 1}"></a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+    <!-- Dark Overlay element for sidebar -->
+    <div class="sidebar-overlay"></div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/user.management.page.js}"></script>
+</th:block>
+</body>
+</html>
