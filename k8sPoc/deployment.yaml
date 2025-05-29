@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      #      hostAliases:
+      #- ip: "<ip>"
+      #  hostnames:
+      #  - "inhouse.ldap"
+      hostNetwork: true
+      containers:
+      - name: myapp
+        image: myapp:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "uat"
+        # Optional: Add command if needed
+        # command: ["your-command-here"]
+

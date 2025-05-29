@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+      - name: test
+        image: test:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "1"
+          limits:
+            memory: "2G"
+            cpu: "1"
+        ports:
+          - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "uat"
+        - name: SPRING_DATA_REDIS_HOST
+          value: host.minikube.internal  # Kubernetes Service name for Redis
+        # Optional: Add command if needed
+        # command: ["your-command-here"]
+

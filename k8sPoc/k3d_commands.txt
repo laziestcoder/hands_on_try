@@ -1,0 +1,10 @@
+## cluster 
+k3d cluster create mycluster
+k3d cluster list
+
+## image
+k3d image import finrec:latest
+
+
+## log
+k3d logs

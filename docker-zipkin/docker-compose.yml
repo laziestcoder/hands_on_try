@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411" # Expose Zipkin UI and API on port 9411
+    environment:
+      - STORAGE_TYPE=mem # Use in-memory storage (default)
+      # Optional: Set the default sampling rate for tracing
+      # - SAMPLE_RATE=1.0 # 1.0 means 100% sampling, adjust as needed
+    restart: unless-stopped
